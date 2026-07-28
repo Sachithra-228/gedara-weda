@@ -19,7 +19,7 @@ export const site = {
   contact: {
     displayPhone: "+94 70 291 1223",
     whatsappMessage: "මට මෙම සේවාව පිළිබඳ තොරතුරු අවශ්‍යයි.",
-    email: "hello@gedaraweda.lk",
+    email: "gedarawada0729@gmail.com",
     location: "ශ්‍රී ලංකාව"
   },
   navigation: [
