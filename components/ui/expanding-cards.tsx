@@ -38,14 +38,14 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
 
       if (isDesktop) {
         return {
-          gridTemplateColumns: items.map((_, index) => (index === activeIndex ? "5fr" : "1fr")).join(" "),
+          gridTemplateColumns: items.map((_, index) => (index === activeIndex ? "5.4fr" : "1fr")).join(" "),
           gridTemplateRows: "1fr"
         };
       }
 
       return {
         gridTemplateColumns: "1fr",
-        gridTemplateRows: items.map((_, index) => (index === activeIndex ? "5fr" : "1fr")).join(" ")
+        gridTemplateRows: items.map((_, index) => (index === activeIndex ? "5.4fr" : "1fr")).join(" ")
       };
     }, [activeIndex, isDesktop, items]);
 
@@ -54,7 +54,7 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
     return (
       <ul
         className={cn(
-          "grid h-[760px] w-full gap-2 transition-[grid-template-columns,grid-template-rows] duration-500 ease-out md:h-[560px]",
+          "grid h-[780px] w-full gap-3 transition-[grid-template-columns,grid-template-rows] duration-500 ease-out md:h-[570px]",
           className
         )}
         ref={ref}
@@ -79,24 +79,24 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
             >
               <Image
                 alt={item.title}
-                className="object-cover grayscale transition-all duration-500 ease-out group-data-[active=true]:scale-100 group-data-[active=true]:grayscale-0 group-data-[active=true]:opacity-95 scale-110 opacity-72"
+                className="object-cover grayscale transition-all duration-500 ease-out group-data-[active=true]:scale-100 group-data-[active=true]:grayscale-0 group-data-[active=true]:opacity-100 scale-110 opacity-68"
                 fill
                 sizes="(min-width: 1024px) 18vw, (min-width: 768px) 24vw, 100vw"
                 src={item.imgSrc}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/22 to-transparent transition group-data-[active=true]:from-black/20 group-data-[active=true]:via-black/5" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/78 via-black/30 to-transparent transition group-data-[active=true]:from-black/12 group-data-[active=true]:via-black/0" />
 
               <article className="absolute inset-0 flex flex-col justify-end p-4 md:p-5">
-                <h3 className="hidden origin-left rotate-90 whitespace-nowrap text-xl font-black leading-none text-white opacity-100 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] transition-all duration-300 ease-out md:block group-data-[active=true]:opacity-0 lg:text-2xl">
+                <h3 className="hidden origin-left rotate-90 whitespace-nowrap text-2xl font-black leading-none text-white opacity-100 drop-shadow-[0_3px_10px_rgba(0,0,0,0.82)] transition-all duration-300 ease-out md:block group-data-[active=true]:opacity-0 lg:text-3xl">
                   {item.title}
                 </h3>
 
-                <div className="max-w-md rounded-card bg-white/94 p-5 text-ink opacity-0 shadow-soft backdrop-blur-sm transition-all duration-300 delay-100 ease-out group-data-[active=true]:opacity-100">
+                <div className="max-w-md rounded-card bg-white p-6 text-ink opacity-0 shadow-soft ring-1 ring-ink/10 transition-all duration-300 delay-100 ease-out group-data-[active=true]:opacity-100">
                   <div className="inline-grid h-10 w-10 place-items-center rounded-card bg-primary/18 text-ink">
                     {item.icon}
                   </div>
-                  <h3 className="mt-4 text-2xl font-black leading-9 text-ink">{item.title}</h3>
-                  <p className="mt-3 text-sm font-medium leading-7 text-muted">{item.description}</p>
+                  <h3 className="mt-4 text-3xl font-black leading-10 text-ink">{item.title}</h3>
+                  <p className="mt-3 text-base font-semibold leading-8 text-muted">{item.description}</p>
 
                   <div className="mt-5 flex flex-col gap-2 sm:flex-row">
                     <Link

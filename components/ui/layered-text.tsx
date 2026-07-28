@@ -1,98 +1,59 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import type React from "react";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
 
-type LayeredLine = { top: string; bottom: string };
+type LayeredLine = {
+  title: string;
+  description: string;
+};
 
 interface LayeredTextProps {
-  lines?: LayeredLine[];
-  fontSize?: string;
-  fontSizeMd?: string;
-  lineHeight?: number;
-  lineHeightMd?: number;
+  lines: LayeredLine[];
   className?: string;
 }
 
-export function LayeredText({
-  lines = [],
-  fontSize = "58px",
-  fontSizeMd = "34px",
-  lineHeight = 54,
-  lineHeightMd = 34,
-  className = ""
-}: LayeredTextProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const timelineRef = useRef<gsap.core.Timeline | null>(null);
-
-  const calculateTranslateX = (index: number) => {
-    const centerIndex = Math.floor(lines.length / 2);
-    return {
-      desktop: (index - centerIndex) * 28,
-      mobile: (index - centerIndex) * 14
-    };
-  };
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const container = containerRef.current;
-    const paragraphs = container.querySelectorAll("p");
-    timelineRef.current = gsap.timeline({ paused: true });
-    timelineRef.current.to(paragraphs, {
-      y: window.innerWidth >= 768 ? -lineHeight : -lineHeightMd,
-      duration: 0.8,
-      ease: "power2.out",
-      stagger: 0.05
-    });
-
-    const handleMouseEnter = () => timelineRef.current?.play();
-    const handleMouseLeave = () => timelineRef.current?.reverse();
-
-    container.addEventListener("mouseenter", handleMouseEnter);
-    container.addEventListener("mouseleave", handleMouseLeave);
-
-    return () => {
-      container.removeEventListener("mouseenter", handleMouseEnter);
-      container.removeEventListener("mouseleave", handleMouseLeave);
-      timelineRef.current?.kill();
-    };
-  }, [lineHeight, lineHeightMd, lines]);
+export function LayeredText({ lines, className = "" }: LayeredTextProps) {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const activeLine = lines[activeIndex] ?? lines[0];
 
   return (
-    <div
-      className={`mx-auto cursor-pointer py-10 font-sans font-black uppercase tracking-normal text-ink antialiased md:py-14 ${className}`}
-      ref={containerRef}
-      style={{ fontSize, "--md-font-size": fontSizeMd } as React.CSSProperties}
-    >
-      <ul className="m-0 flex list-none flex-col items-center p-0">
+    <div className={cn("grid items-center gap-10 lg:grid-cols-[1.05fr_0.95fr]", className)}>
+      <ul className="m-0 flex list-none flex-col gap-4 p-0 md:gap-5">
         {lines.map((line, index) => {
-          const translateX = calculateTranslateX(index);
-          const skew = index % 2 === 0 ? "60deg, -30deg" : "0deg, -30deg";
-          const scaleY = index % 2 === 0 ? "0.66667" : "1.33333";
+          const isActive = activeIndex === index;
+          const offset = index % 2 === 0 ? "lg:group-hover:-translate-x-5" : "lg:group-hover:translate-x-5";
 
           return (
-            <li
-              className="relative overflow-hidden"
-              key={`${line.top}-${line.bottom}-${index}`}
-              style={{
-                height: `${lineHeight}px`,
-                transform: `translateX(${translateX.desktop}px) skew(${skew}) scaleY(${scaleY})`,
-                "--md-height": `${lineHeightMd}px`,
-                "--md-translateX": `${translateX.mobile}px`
-              } as React.CSSProperties}
-            >
-              <p className="m-0 whitespace-nowrap px-4 align-top" style={{ height: `${lineHeight}px`, lineHeight: `${lineHeight - 4}px` }}>
-                {line.top}
-              </p>
-              <p className="m-0 whitespace-nowrap px-4 align-top text-accent" style={{ height: `${lineHeight}px`, lineHeight: `${lineHeight - 4}px` }}>
-                {line.bottom}
-              </p>
+            <li key={line.title}>
+              <button
+                className={cn(
+                  "group focus-ring block w-full text-left transition-transform duration-300",
+                  offset
+                )}
+                onFocus={() => setActiveIndex(index)}
+                onMouseEnter={() => setActiveIndex(index)}
+                type="button"
+              >
+                <span
+                  className={cn(
+                    "block rounded-card px-4 py-2 text-4xl font-black leading-tight tracking-normal transition duration-300 md:text-6xl",
+                    isActive ? "bg-white text-accent shadow-line" : "text-ink hover:bg-white/70"
+                  )}
+                >
+                  {line.title}
+                </span>
+              </button>
             </li>
           );
         })}
       </ul>
+
+      <aside className="rounded-card border border-ink/10 bg-white p-6 shadow-soft lg:sticky lg:top-24">
+        <p className="text-sm font-bold text-accent">සේවා විස්තර</p>
+        <h3 className="mt-3 text-3xl font-black leading-tight text-ink md:text-4xl">{activeLine.title}</h3>
+        <p className="mt-5 text-base font-medium leading-8 text-muted">{activeLine.description}</p>
+      </aside>
     </div>
   );
 }
