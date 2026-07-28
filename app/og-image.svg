@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#FFFDEB"/>
+  <circle cx="1030" cy="90" r="210" fill="#E8DBB3"/>
+  <circle cx="150" cy="530" r="250" fill="#7DAACB" opacity=".35"/>
+  <path d="M312 355 600 145l288 210v155H312Z" fill="#fff" stroke="#111" stroke-width="10"/>
+  <path d="M260 355 600 105l340 250" fill="none" stroke="#CE2626" stroke-width="18" stroke-linecap="round"/>
+  <rect x="520" y="365" width="160" height="145" rx="8" fill="#7DAACB"/>
+  <text x="90" y="130" font-size="74" font-family="sans-serif" font-weight="700" fill="#111">ගෙදර වැඩ</text>
+  <text x="90" y="215" font-size="34" font-family="sans-serif" fill="#555">ශ්‍රී ලංකාවේ විශ්වාසනීය නිවාස සේවා වේදිකාව</text>
+</svg>
