@@ -67,7 +67,7 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
           return (
             <li
               className={cn(
-                "group relative min-h-0 min-w-0 cursor-pointer overflow-hidden rounded-card border border-white/10 bg-ink text-white shadow-line outline-none",
+                "group relative min-h-0 min-w-0 cursor-pointer overflow-hidden rounded-card bg-white text-white shadow-line outline-none",
                 "focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-background md:min-w-[74px]"
               )}
               data-active={isActive}
@@ -79,47 +79,43 @@ export const ExpandingCards = React.forwardRef<HTMLUListElement, ExpandingCardsP
             >
               <Image
                 alt={item.title}
-                className="object-cover grayscale transition-all duration-500 ease-out group-data-[active=true]:scale-100 group-data-[active=true]:grayscale-0 group-data-[active=true]:opacity-95 scale-110 opacity-70"
+                className="object-cover grayscale transition-all duration-500 ease-out group-data-[active=true]:scale-100 group-data-[active=true]:grayscale-0 group-data-[active=true]:opacity-95 scale-110 opacity-72"
                 fill
                 sizes="(min-width: 1024px) 18vw, (min-width: 768px) 24vw, 100vw"
                 src={item.imgSrc}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/88 via-black/42 to-black/10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/72 via-black/22 to-transparent transition group-data-[active=true]:from-black/20 group-data-[active=true]:via-black/5" />
 
-              <article className="absolute inset-0 flex flex-col justify-end gap-3 p-4 md:p-5">
-                <h3 className="hidden origin-left rotate-90 text-sm font-bold text-white/80 opacity-100 transition-all duration-300 ease-out md:block group-data-[active=true]:opacity-0">
+              <article className="absolute inset-0 flex flex-col justify-end p-4 md:p-5">
+                <h3 className="hidden origin-left rotate-90 whitespace-nowrap text-xl font-black leading-none text-white opacity-100 drop-shadow-[0_2px_8px_rgba(0,0,0,0.7)] transition-all duration-300 ease-out md:block group-data-[active=true]:opacity-0 lg:text-2xl">
                   {item.title}
                 </h3>
 
-                <div className="text-white opacity-0 transition-all duration-300 delay-75 ease-out group-data-[active=true]:opacity-100">
-                  {item.icon}
-                </div>
+                <div className="max-w-md rounded-card bg-white/94 p-5 text-ink opacity-0 shadow-soft backdrop-blur-sm transition-all duration-300 delay-100 ease-out group-data-[active=true]:opacity-100">
+                  <div className="inline-grid h-10 w-10 place-items-center rounded-card bg-primary/18 text-ink">
+                    {item.icon}
+                  </div>
+                  <h3 className="mt-4 text-2xl font-black leading-9 text-ink">{item.title}</h3>
+                  <p className="mt-3 text-sm font-medium leading-7 text-muted">{item.description}</p>
 
-                <h3 className="max-w-sm text-2xl font-black leading-9 text-white opacity-0 transition-all duration-300 delay-100 ease-out group-data-[active=true]:opacity-100">
-                  {item.title}
-                </h3>
-
-                <p className="max-w-sm text-sm leading-7 text-white/78 opacity-0 transition-all duration-300 delay-150 ease-out group-data-[active=true]:opacity-100">
-                  {item.description}
-                </p>
-
-                <div className="flex flex-col gap-2 opacity-0 transition-all duration-300 delay-200 ease-out group-data-[active=true]:opacity-100 sm:flex-row">
-                  <Link
-                    className="focus-ring inline-flex items-center justify-center gap-2 rounded-card bg-white px-4 py-2 text-xs font-bold text-ink transition hover:bg-secondary"
-                    href={item.linkHref}
-                  >
-                    විස්තර බලන්න
-                    <ArrowUpRight className="h-3.5 w-3.5" />
-                  </Link>
-                  <a
-                    className="focus-ring inline-flex items-center justify-center gap-2 rounded-card bg-[#25D366] px-4 py-2 text-xs font-bold text-white transition hover:bg-[#1FAF55]"
-                    href={item.whatsappHref}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    <MessageCircle className="h-3.5 w-3.5" />
-                    WhatsApp
-                  </a>
+                  <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+                    <Link
+                      className="focus-ring inline-flex items-center justify-center gap-2 rounded-card bg-ink px-4 py-2 text-xs font-bold text-white transition hover:bg-accent"
+                      href={item.linkHref}
+                    >
+                      විස්තර බලන්න
+                      <ArrowUpRight className="h-3.5 w-3.5" />
+                    </Link>
+                    <a
+                      className="focus-ring inline-flex items-center justify-center gap-2 rounded-card bg-[#25D366] px-4 py-2 text-xs font-bold text-white transition hover:bg-[#1FAF55]"
+                      href={item.whatsappHref}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      <MessageCircle className="h-3.5 w-3.5" />
+                      WhatsApp
+                    </a>
+                  </div>
                 </div>
               </article>
             </li>

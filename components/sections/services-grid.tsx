@@ -47,9 +47,7 @@ export function ServicesGrid({ limit }: { limit?: number }) {
           title="නිවසේ වැඩ සඳහා තෝරාගත හැකි සේවා"
           text="අපි සේවාව සෘජුව නොකරමු. ඔබගේ අවශ්‍යතාව අනුව සුදුසු ශිල්පීන් හා කණ්ඩායම් සම්බන්ධ කර ගැනීමට පහසු මාර්ගයක් ලබාදෙමු."
         />
-        <div className="rounded-[1.5rem] bg-ink p-2 shadow-soft">
-          <ExpandingCards items={items} />
-        </div>
+        <ExpandingCards className="shadow-soft" items={items} />
         {limit ? (
           <div className="mt-10 text-center">
             <ButtonLink href="/services" variant="light">
