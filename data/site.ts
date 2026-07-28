@@ -32,7 +32,8 @@ export const site = {
   ],
   socials: [
     { label: "WhatsApp", href: "https://wa.me/94702911223" },
-    { label: "Facebook", href: "https://facebook.com" },
-    { label: "TikTok", href: "https://tiktok.com" }
+    { label: "Facebook", href: "https://www.facebook.com/profile.php?id=61592450106791" },
+    { label: "TikTok", href: "https://www.tiktok.com/@gedarawada" },
+    { label: "YouTube", href: "https://www.youtube.com/channel/UCc1O6IBvV-Mco1kxJoftVjg" }
   ]
 };

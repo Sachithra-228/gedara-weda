@@ -1,8 +1,14 @@
 import Link from "next/link";
-import { Facebook, MessageCircle, Music2 } from "lucide-react";
+import { Facebook, MessageCircle, Music2, Youtube } from "lucide-react";
 import { site } from "@/data/site";
 import { services } from "@/data/services";
 import { whatsappUrl } from "@/lib/utils";
+
+const socialIcons = {
+  Facebook,
+  TikTok: Music2,
+  YouTube: Youtube
+};
 
 export function Footer() {
   return (
@@ -14,15 +20,33 @@ export function Footer() {
           </Link>
           <p className="mt-4 max-w-sm leading-7 text-muted">{site.tagline}</p>
           <div className="mt-6 flex gap-3">
-            <a className="focus-ring grid h-10 w-10 place-items-center rounded-card bg-ink text-white" href={whatsappUrl(site.contact.whatsappMessage)} aria-label="WhatsApp">
+            <a
+              aria-label="WhatsApp"
+              className="focus-ring grid h-10 w-10 place-items-center rounded-card bg-[#25D366] text-white"
+              href={whatsappUrl(site.contact.whatsappMessage)}
+              rel="noreferrer"
+              target="_blank"
+            >
               <MessageCircle className="h-4 w-4" />
             </a>
-            <a className="focus-ring grid h-10 w-10 place-items-center rounded-card border border-ink/10 bg-white" href="https://facebook.com" aria-label="Facebook">
-              <Facebook className="h-4 w-4" />
-            </a>
-            <a className="focus-ring grid h-10 w-10 place-items-center rounded-card border border-ink/10 bg-white" href="https://tiktok.com" aria-label="TikTok">
-              <Music2 className="h-4 w-4" />
-            </a>
+            {site.socials
+              .filter((social) => social.label !== "WhatsApp")
+              .map((social) => {
+                const Icon = socialIcons[social.label as keyof typeof socialIcons] ?? MessageCircle;
+
+                return (
+                  <a
+                    aria-label={social.label}
+                    className="focus-ring grid h-10 w-10 place-items-center rounded-card border border-ink/10 bg-white transition hover:border-primary hover:text-accent"
+                    href={social.href}
+                    key={social.label}
+                    rel="noreferrer"
+                    target="_blank"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </a>
+                );
+              })}
           </div>
         </div>
         <div>
