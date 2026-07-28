@@ -3,6 +3,7 @@ import { FaqSection } from "@/components/sections/faq";
 import { Gallery } from "@/components/sections/gallery";
 import { Hero } from "@/components/sections/hero";
 import { HowItWorks } from "@/components/sections/how-it-works";
+import { ServiceListText } from "@/components/sections/service-list-text";
 import { ServicesGrid } from "@/components/sections/services-grid";
 import { Stats } from "@/components/sections/stats";
 import { Testimonials } from "@/components/sections/testimonials";
@@ -18,6 +19,7 @@ export default function HomePage() {
       <HowItWorks />
       <Gallery />
       <Testimonials />
+      <ServiceListText />
       <FaqSection />
       <Cta />
     </>

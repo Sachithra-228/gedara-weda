@@ -1,0 +1,23 @@
+import { LayeredText } from "@/components/ui/layered-text";
+import { SectionHeading } from "@/components/shared/section-heading";
+import { services } from "@/data/services";
+
+export function ServiceListText() {
+  const lines = services.map((service, index) => ({
+    top: index === 0 ? "\u00A0" : services[index - 1].title,
+    bottom: service.title
+  }));
+
+  return (
+    <section className="overflow-hidden bg-white/45 py-24">
+      <div className="section-shell">
+        <SectionHeading
+          eyebrow="සේවා ලැයිස්තුව"
+          title="අප සම්බන්ධ කරදෙන සේවා සියල්ල"
+          text="ඔබගේ නිවසට අවශ්‍ය සේවාව තෝරාගෙන WhatsApp හරහා අපට විස්තර යවන්න."
+        />
+        <LayeredText className="max-w-5xl" fontSize="54px" fontSizeMd="30px" lineHeight={52} lineHeightMd={32} lines={lines} />
+      </div>
+    </section>
+  );
+}
