@@ -1,15 +1,43 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-import { Reveal } from "@/components/shared/reveal";
+"use client";
+
+import { ButtonLink } from "@/components/ui/button-link";
+import { ExpandingCards, type CardItem } from "@/components/ui/expanding-cards";
 import { SectionHeading } from "@/components/shared/section-heading";
 import { ServiceIcon } from "@/components/shared/icon-map";
-import { ButtonLink } from "@/components/ui/button-link";
-import { site } from "@/data/site";
 import { services } from "@/data/services";
 import { whatsappUrl } from "@/lib/utils";
 
+const serviceImages: Record<string, string> = {
+  "home-repair": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80",
+  plumbing: "https://images.unsplash.com/photo-1607472586893-edb57bdc0e39?auto=format&fit=crop&w=1200&q=80",
+  electrical: "https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1200&q=80",
+  painting: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=1200&q=80",
+  carpentry: "https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&w=1200&q=80",
+  aluminium: "https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=1200&q=80",
+  tiles: "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&w=1200&q=80",
+  construction: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=1200&q=80",
+  roofing: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=1200&q=80",
+  grill: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?auto=format&fit=crop&w=1200&q=80",
+  gate: "https://images.unsplash.com/photo-1600566752355-35792bedcfea?auto=format&fit=crop&w=1200&q=80",
+  cctv: "https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1200&q=80",
+  ac: "https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=1200&q=80",
+  cleaning: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&w=1200&q=80",
+  landscaping: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1200&q=80"
+};
+
 export function ServicesGrid({ limit }: { limit?: number }) {
   const visibleServices = limit ? services.slice(0, limit) : services;
+  const expandingServices = visibleServices.slice(0, limit ? 7 : 9);
+
+  const items: CardItem[] = expandingServices.map((service) => ({
+    id: service.slug,
+    title: service.title,
+    description: service.summary,
+    imgSrc: serviceImages[service.slug] ?? serviceImages["home-repair"],
+    icon: <ServiceIcon className="h-6 w-6" name={service.icon} />,
+    linkHref: `/services/${service.slug}`,
+    whatsappHref: whatsappUrl(`මට ${service.title} සේවාව පිළිබඳ තොරතුරු අවශ්‍යයි.`)
+  }));
 
   return (
     <section className="py-24" id="services">
@@ -19,34 +47,8 @@ export function ServicesGrid({ limit }: { limit?: number }) {
           title="නිවසේ වැඩ සඳහා තෝරාගත හැකි සේවා"
           text="අපි සේවාව සෘජුව නොකරමු. ඔබගේ අවශ්‍යතාව අනුව සුදුසු ශිල්පීන් හා කණ්ඩායම් සම්බන්ධ කර ගැනීමට පහසු මාර්ගයක් ලබාදෙමු."
         />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {visibleServices.map((service, index) => (
-            <Reveal delay={index * 0.035} key={service.slug}>
-              <article className="group h-full rounded-card border border-ink/10 bg-white p-6 shadow-line transition duration-300 hover:-translate-y-1 hover:shadow-soft">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="grid h-12 w-12 place-items-center rounded-card bg-primary/18 text-ink transition group-hover:bg-primary group-hover:text-white">
-                    <ServiceIcon className="h-5 w-5" name={service.icon} />
-                  </div>
-                  <ArrowRight className="h-5 w-5 text-muted transition group-hover:translate-x-1 group-hover:text-accent" />
-                </div>
-                <h3 className="mt-5 text-xl font-bold text-ink">{service.title}</h3>
-                <p className="mt-3 min-h-20 leading-7 text-muted">{service.summary}</p>
-                <div className="mt-6 flex flex-col gap-2">
-                  <Link className="focus-ring text-sm font-bold text-ink hover:text-accent" href={`/services/${service.slug}`}>
-                    විස්තර බලන්න
-                  </Link>
-                  <a
-                    className="focus-ring text-sm font-bold text-accent"
-                    href={whatsappUrl(`මට ${service.title} සේවාව පිළිබඳ තොරතුරු අවශ්‍යයි.`)}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    මේ සේවාව සඳහා WhatsApp කරන්න
-                  </a>
-                </div>
-              </article>
-            </Reveal>
-          ))}
+        <div className="rounded-[1.5rem] bg-ink p-2 shadow-soft">
+          <ExpandingCards items={items} />
         </div>
         {limit ? (
           <div className="mt-10 text-center">
