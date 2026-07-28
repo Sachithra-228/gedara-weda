@@ -32,8 +32,8 @@ export function Hero() {
   }, []);
 
   return (
-    <section ref={heroRef} className="relative overflow-hidden pb-16 pt-20 md:pb-20 md:pt-24">
-      <div className="section-shell grid min-h-[calc(100vh-6rem)] items-center gap-10 lg:grid-cols-[1fr_0.92fr]">
+    <section ref={heroRef} className="relative overflow-hidden pb-12 pt-14 md:pb-16 md:pt-16">
+      <div className="section-shell grid min-h-[calc(100vh-14rem)] items-center gap-10 lg:grid-cols-[1fr_0.92fr]">
         <div>
           <h1 className="hero-rise max-w-3xl text-4xl font-black leading-[1.18] tracking-normal text-ink md:text-6xl">
             <span className="block">නිවසේ ඕනෑම වැඩකට</span>
